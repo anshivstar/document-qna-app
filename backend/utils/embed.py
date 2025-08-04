@@ -1,12 +1,8 @@
-from sentence_transformers import SentenceTransformer
 import numpy as np
 import faiss 
 from utils.ingest import create_faiss_index, split_into_chunks
 from utils.vector_utils import get_embedding
 
-
-# Load local embedding model
-model = SentenceTransformer('all-MiniLM-L6-v2')
 
 # Global index and chunks to simulate in-memory state
 index = None
