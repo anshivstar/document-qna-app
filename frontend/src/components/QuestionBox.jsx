@@ -5,6 +5,7 @@ import axios from 'axios';
 export default function QuestionBox({ setAnswer }) {
   const [question, setQuestion] = useState('');
   const [loading, setLoading] = useState(false);
+  const BASE_URL = process.env.REACT_APP_API_URL;
 
   const handleAsk = async (e) => {
     e.preventDefault();
@@ -15,7 +16,7 @@ export default function QuestionBox({ setAnswer }) {
     formData.append('question', question);
 
     try {
-      const res = await axios.post('http://localhost:8000/query', formData);
+      const res = await axios.post(`${BASE_URL}/query`, formData);
       setAnswer(res.data.answer);
     } catch (err) {
       console.error(err);

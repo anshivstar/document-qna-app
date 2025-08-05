@@ -1,14 +1,11 @@
 import numpy as np
-import faiss 
-from utils.ingest import create_faiss_index, split_into_chunks
+from utils.ingest import create_faiss_index
 from utils.vector_utils import get_embedding
-
+from utils.llm import ask_llm
 
 # Global index and chunks to simulate in-memory state
 index = None
 chunks = []
-
-# Get embedding from SentenceTransformer
 
 
 def answer_query(question):
@@ -29,15 +26,19 @@ def answer_query(question):
     matched_chunks = [chunks[i] for i in top_indices[0] if i < len(chunks)]
 
     # Combine and return the result
-    result = "\n".join(matched_chunks)
-    return f"Here are the most relevant parts of your document:\n\n{result}"
+
+    context = "\n".join(matched_chunks)
+
+    # Use LLM instead of raw chunks
+    answer = ask_llm(context, question)
+    return answer
 
 
 # Setup FAISS index from parsed chunks
 def embed_and_store(chunks_input):
     global index, chunks
     index, chunks = create_faiss_index(chunks_input)
-    print(f"[DEBUG] Received {len(chunks_input)} chunks")
+    
 
 
 

@@ -6,6 +6,8 @@ export default function UploadForm() {
   const [file, setFile] = useState(null);
   const [status, setStatus] = useState('');
 
+  const BASE_URL = process.env.REACT_APP_API_URL;
+
   const handleUpload = async (e) => {
     e.preventDefault();
     if (!file) {
@@ -18,7 +20,7 @@ export default function UploadForm() {
 
     try {
       setStatus('Uploading...');
-      const res = await axios.post('http://localhost:8000/upload', formData, {
+      const res = await axios.post(`${BASE_URL}/upload`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setStatus(`✅ ${res.data.message} (${res.data.chunks} chunks)`);

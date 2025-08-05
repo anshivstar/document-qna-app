@@ -4,6 +4,9 @@ from utils.embed import answer_query, embed_and_store
 from utils.ingest import parse_pdf
 from tempfile import NamedTemporaryFile
 import shutil
+from dotenv import load_dotenv
+load_dotenv()
+
 
 app = FastAPI()
 
@@ -34,6 +37,6 @@ async def upload_file(file: UploadFile = File(...)):
 # Answer a query based on the uploaded document
 @app.post("/query")
 async def query_document(question: str = Form(...)):
-    answer = answer_query(question)
+    answer = answer_query(question)  
     return {"answer": answer}
 
