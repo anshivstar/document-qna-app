@@ -1,7 +1,6 @@
 import pdfplumber
 import numpy as np
 import faiss
-from openai import OpenAIError
 from utils.vector_utils import get_embedding
 
 CHUNK_SIZE = 200
